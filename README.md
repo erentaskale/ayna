@@ -2,6 +2,8 @@
 
 Profil fotoğrafını değiştirmeden önce **WhatsApp, Instagram, X ve TikTok**'ta gerçek boyutunda nasıl duracağını gör. Dilediğin gibi ölçekle, kırpılmış halini orijinal kalitede indir.
 
+**Canlı:** https://erentaskale.github.io/ayna/
+
 ## Ne yapıyor?
 
 - **Gerçek boyutlu önizleme:** Fotoğrafın dört uygulamanın güncel arayüzlerinde, telefonda kapladığı alan kadar gösterilir (1 CSS pikseli = 1 piksel, iPhone genişliği 390 px).
