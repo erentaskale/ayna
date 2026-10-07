@@ -482,16 +482,54 @@ footer b { color: var(--ink-2); }
    6. DAR EKRAN + HAREKET AZALTMA
    ========================================================= */
 @media (max-width: 1000px) {
-    .studio { grid-template-columns: 1fr; }
-    .tools { position: static; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); align-items: start; }
+    /* minmax(0, …): 390 px'lik telefon sütunu genişletip sayfayı yana itmesin */
+    .studio { grid-template-columns: minmax(0, 1fr); }
+    .tools { position: static; grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr)); align-items: start; }
 }
 @media (max-width: 600px) {
-    .top, .hero, .studio, footer { padding-left: 16px; padding-right: 16px; }
-    .drop { flex-wrap: wrap; justify-content: center; text-align: center; }
+    .top, .hero, .studio, footer { padding-left: 12px; padding-right: 12px; }
+    .top { padding-top: 16px; padding-bottom: 16px; }
+    .hero { padding-top: 12px; padding-bottom: 44px; }
+    .hero p.lead { margin-top: 18px; font-size: 16px; }
+    .drop { flex-wrap: wrap; justify-content: center; text-align: center; margin-top: 28px; padding: 22px 16px; }
     .drop .btn { margin: 0 auto; }
-    .board-bar { border-radius: 18px; }
-    .tab span.nm { display: none; }
     .top .pill { display: none; }
+    .studio { padding-bottom: 48px; gap: 20px; }
+    .tools { gap: 12px; }
+    .card { padding: 16px; border-radius: 22px; }
+
+    /* Üst çubuk: tek satır, tema yalnız ikon */
+    .board-bar { flex-wrap: nowrap; gap: 6px; top: 8px; padding: 6px; border-radius: 18px; margin-bottom: 20px; }
+    .tabs { flex-wrap: nowrap; gap: 2px; }
+    .tab { height: 38px; padding: 0 9px; }
+    .tab.all { padding: 0 13px; }
+    .tab span.nm, .theme .nm { display: none; }
+    .theme button { height: 32px; padding: 0 9px; }
+
+    .view-head { margin: 0 2px 18px; }
+    .view-head h2 { font-size: 26px; }
+
+    /* Önizlemeler kenardan kenara: kalın çerçeve yok, ekran neredeyse gerçek boyutta */
+    .phone { border-radius: 30px; box-shadow: 0 0 0 1px var(--line-2), 0 24px 40px -24px rgba(90,55,20,.4); }
+    .phone.short { border-radius: 30px 30px 20px 20px; }
+    .fit { padding: 0; margin: 0; }
+    .row { margin: 0 -12px; padding: 0; gap: 36px; }
+    .mock figcaption { padding: 0 14px; margin-bottom: 14px; }
+    .mock .fit { margin: 0 auto; }
+
+    /* Genel bakış: dört telefon yan yana kayar, sıradakinin ucu görünür */
+    .ov-grid {
+        flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto;
+        margin: 0 -12px; padding: 4px 12px 18px; scroll-snap-type: x mandatory;
+        scroll-padding: 0 12px; scrollbar-width: none; overscroll-behavior-x: contain;
+    }
+    .ov-grid::-webkit-scrollbar { display: none; }
+    .ov { flex-shrink: 0; scroll-snap-align: start; gap: 14px; }
+    .ov:hover .fit { transform: none; }
+
+    .ladder-card { margin-top: 40px; padding: 20px 16px; }
+    .ladder { gap: 18px 22px; justify-content: center; }
+    footer { flex-direction: column; padding-top: 24px; padding-bottom: 36px; }
 }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -572,8 +610,8 @@ footer b { color: var(--ink-2); }
         <div class="board-bar">
             <div class="tabs" id="tabs"></div>
             <div class="theme" role="group" aria-label="Uygulama teması">
-                <button type="button" data-theme="light" aria-pressed="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>Açık</button>
-                <button type="button" data-theme="dark" aria-pressed="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>Koyu</button>
+                <button type="button" data-theme="light" aria-pressed="true" aria-label="Açık tema"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg><span class="nm">Açık</span></button>
+                <button type="button" data-theme="dark" aria-pressed="false" aria-label="Koyu tema"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><span class="nm">Koyu</span></button>
             </div>
         </div>
         <div id="view"></div>
@@ -937,7 +975,17 @@ function writeDims() {
 // Sığmayan ekranı küçült; genel bakışta dördünü yan yana sığdır
 function fit() {
     const view = $('view');
-    const avail = view.clientWidth - 8;
+    const mobile = matchMedia('(max-width: 600px)').matches;
+    // Mobilde önizlemeler kenardan kenara uzanır; ölçü sayfanın kendi genişliği
+    const avail = mobile ? document.documentElement.clientWidth : view.clientWidth - 8;
+    if (state.tab === 'hepsi' && mobile) {
+        // Kaydırmalı dizi: sıradaki telefonun ucu sağda görünür, kaydırılabildiği anlaşılır
+        const z = Math.min(1, (avail - 60) / 390);
+        view.querySelectorAll('.ov .fit').forEach(f => f.style.zoom = z);
+        view.querySelectorAll('.ov').forEach(o => o.style.width = Math.floor(390 * z) + 'px');
+        view.querySelector('.ov-grid').style.gap = '14px';
+        return;
+    }
     if (state.tab === 'hepsi') {
         const W = 390 + 22, gap = 28;
         // 4 yan yana ya da 2x2; 3+1 dağınık durur
